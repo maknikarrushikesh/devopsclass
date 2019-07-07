@@ -1,0 +1,12 @@
+---
+- hosts: web #group name from the inventory
+  vars:
+    pack_name: nagios
+  
+
+  tasks:
+    - name: Install {{ pack_name }}
+      yum: pkg={{ pack_name }} state=installed
+      become: yes
+      register: output
+

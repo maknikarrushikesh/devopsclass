@@ -1,0 +1,18 @@
+-
+  name: Execute a script on all web server nodes
+  hosts: web
+  vars: 
+    pack_name: https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
+  tasks:
+    - name: Execute the command
+      command: rpm -Uvh https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
+      become: yes
+    - name: Execute sed command
+      command: sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/mysql-community.repo
+      become: yes
+    -
+ 
+      
+
+      service: name=mysql state=started
+

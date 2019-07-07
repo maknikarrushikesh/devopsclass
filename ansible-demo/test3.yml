@@ -1,0 +1,45 @@
+---
+- hosts: web #group name from the inventory
+  tasks:
+    - name: execute date command
+      command: date
+      register: output
+    - name: append
+      lineinfile:
+        path: /opt/rushi.txt
+        line: "{{output.stdout}}"
+        state: present
+        create: yes
+        insertafter: EOF
+      delegate_to: localhost
+    - debug: var=output
+      become: yes
+    - name: execute cat command
+      command: cat /etc/hosts
+      register: output1
+    - name: append
+      lineinfile:
+        path: /opt/rushi1.txt
+        line: "{{output1.stdout}}"
+        state: present
+        create: yes
+        insertafter: EOF
+      delegate_to: localhost
+
+    - debug: var=output1
+      become: yes
+    - name: execute uptime command
+      command: uptime
+      register: output2
+    - name: append
+      lineinfile:
+        path: /opt/rushi2.txt
+        line: "{{output2.stdout}}"
+        state: present
+        create: yes
+        insertafter: EOF
+      delegate_to: localhost
+
+      
+    - debug: var=output2
+   

@@ -1,0 +1,10 @@
+---
+- hosts: web #group name from the inventory
+  tasks:
+    - name: execute command
+      command: date
+      register: output
+    - debug: var=output
+      become: yes
+     
+
